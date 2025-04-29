@@ -50,9 +50,7 @@ solver.removeIndependent( "n2.ind_Vreal" );
 solver.removeIndependent( "n2.ind_Vimag" );
 n2.Vreal = 0;
 n2.Vimag = 0;
-//---------------------------------------------------------
-// just like a rocket engine, volumes last
-//---------------------------------------------------------
+
 solver.debugLevel = "ITERATION_DETAILS";
 solver.diagnosticFile = "output/Solver.bad";
 // solver.solutionMode = "ONE_PASS";
