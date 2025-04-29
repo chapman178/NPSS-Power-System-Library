@@ -61,6 +61,8 @@ Element Enode n1{
 
 Element Enode n2 {
   ElectricInputPort EP_I1, EP_I2;
+  real Iout = 1;
+  dep_Ireal.eq_rhs = "Iout";
 }
 
 linkPortI("DCS.EP_O", "R1.EP_I");
@@ -70,6 +72,8 @@ linkPortI("R2.EP_O", "n2.EP_I1");
 linkPortI("n1.EP_O2","R3.EP_I");
 linkPortI("R3.EP_O", "n2.EP_I2");
 
+Independent ind_Iout { varName = "n2.Iout";}
+Dependent dep_Vgrnd { eq_rhs="DCS.Ireal"; eq_lhs="n2.Iout"; }
 
 // linkEports( "DCS.EP_O", "R1.EP_I", "PORT" );
 // linkEports("R1.EP_O", "n1" ,"NODE");

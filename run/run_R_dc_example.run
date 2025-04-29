@@ -42,6 +42,9 @@ MODELNAME = "Resistive Circuit";
 
 autoSolverSetup();
 cout << solverSequence << endl;
+solver.addIndependent( "ind_Iout" );
+solver.removeIndependent( "n2.ind_Vreal" );
+n2.Vreal = 0;
 cout << endl << solver.dependentNames << endl << solver.independentNames << endl;
 //---------------------------------------------------------
 // just like a rocket engine, volumes last
