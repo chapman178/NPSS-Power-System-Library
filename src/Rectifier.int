@@ -245,7 +245,7 @@ component to the surrounding environment. For more information, see EThermalMass
   //-----------------------------------------------
 
   void calculate() {
-
+    EP_O.frequency = 0.;
     // Get data from input port
     frequency = EP_I.frequency;
     pwrIn = EP_I.S.getReal();
