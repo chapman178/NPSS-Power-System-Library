@@ -30,7 +30,7 @@ ElectricAssembly powerPropagation {
     Vimag = 0;    // [volts]
   }
   Element Source S1 { // AC source 1
-    setOption("ElectricPowerType", "AC3");
+    setOption("switchPowerType", "AC3LL");
     Vrms     = 1000;  // [volts]
     Vphase     = 0;    // [volts]
     effDes    = .99; // [99 %]
@@ -38,7 +38,7 @@ ElectricAssembly powerPropagation {
   }
 
   Element Source S2 { // AC source 2
-    setOption("ElectricPowerType", "AC3");
+    setOption("switchPowerType", "AC3LL");
     Vrms     = 1000;  // [volts]
     Vphase     = 0;    // [volts]
     effDes    = .99; // [99 %]
@@ -46,7 +46,7 @@ ElectricAssembly powerPropagation {
   }
 
   Element Source B1 { // battery 1
-    setOption("ElectricPowerType", "DC");
+    setOption("switchPowerType", "DC");
     Vrms  = 1350;  // [volts]
     Vphase  = 0;    // [volts]
     effDes = .99; // [99 %]

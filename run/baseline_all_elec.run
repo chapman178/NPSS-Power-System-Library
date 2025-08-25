@@ -23,9 +23,6 @@
 #include "npssel.view"
 #include "IOUtils.fnc"
 
-// include consortium port desired changes
-#include "consort_fix.fnc"
-
 #include "baseline_all_elec.mdl"
 
 MODELNAME = "Baseline All Electric Example";
@@ -35,7 +32,7 @@ MODELNAME = "Baseline All Electric Example";
  | Run Solver Cases |
  --------------------
 **/
-
+// solver.solutionMode="ONE_PASS";
 setOption("switchDes", "DESIGN");
 autoSolverSetup();
 
@@ -59,7 +56,7 @@ cout << "=======================\n"
 
 for (i = 0; i < loads.entries(); i++) {
   cout << "Power Demand: " << loads[i] << " kW\n\n";
-  allElectric.Load.Pdemand = loads[i];
+  Load.Pdemand = loads[i];
   run(); CASE++;
   page.display();
   printCaseStats("solver");

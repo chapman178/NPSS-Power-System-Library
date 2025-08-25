@@ -178,14 +178,10 @@ component to the surrounding environment. For more information, see EThermalMass
 
   ElectricInputPort EP_I {
     description = "Electric input port.";
-    //ElectricPowerType.allowedValues = { "AC3" };
-    setOption("ElectricPowerType", "AC3"); // only AC3 output allowed
   }
 
   ElectricOutputPort EP_O {
     description = "Electric output port.";
-    //ElectricPowerType.allowedValues = { "DC" };
-    setOption("ElectricPowerType", "DC"); // only DC output allowed
   }
 
   // SOCKETS
@@ -214,7 +210,7 @@ component to the surrounding environment. For more information, see EThermalMass
   }
   
   Dependent dep_phase {
-    eq_lhs = "EP_I.S.j";
+    eq_lhs = "EP_I.S.getImag()";
     eq_rhs = "0";
     autoSetup = TRUE;
   }
@@ -237,6 +233,13 @@ component to the surrounding environment. For more information, see EThermalMass
     }
   }
 
+  //-----------------------------------------------------
+  // ******  Initialization ******
+  //-----------------------------------------------------
+  void VCinit() {
+    EP_I.setOption("switchPowerType", "AC3LL");
+    EP_O.setOption("switchPowerType", "DC");
+  }
   //-----------------------------------------------
   // ****** PERFORM ENGINEERING CALCULATIONS ******
   //-----------------------------------------------
@@ -245,7 +248,7 @@ component to the surrounding environment. For more information, see EThermalMass
 
     // Get data from input port
     frequency = EP_I.frequency;
-    pwrIn = EP_I.S.r;
+    pwrIn = EP_I.S.getReal();
 
     if (switchDes == "DESIGN" ) {
       // handle case where guessed design power is close to zero.
@@ -269,34 +272,20 @@ component to the surrounding environment. For more information, see EThermalMass
     real pwrOut = pwrIn * eff**sign(pwrIn);
 
     // Ideal output DC voltage
-    real Vo = EP_I.V.mag * 3 * sqrt(2) / PI * K;
+    real Vo = abs_c(EP_I.V) * 3 * sqrt(2) / PI * K;
 
     // Output DC current (w/ losses)
     real Io = 1000.*pwrOut / Vo;
 
-    Complex Io_complex;
-    Complex Vo_complex;
-    Io_complex = Io;
-    Vo_complex = Vo;
-    
     Complex Icomplex;
     Complex Vcomplex;
-    Icomplex.set(Io_complex,0);
+    Icomplex.set(Io,0);
     Vcomplex.set(Vo,0);
     // Populate data in output port
     EP_O.setIVRMS(Icomplex, Vcomplex);
-    //EP_O.setIVRMS(Io, 0., Vo, 0.);
-    
-    Complex EP_I_S;
-    Complex EP_O_S;
-    EP_I_S = EP_I.S;
-    EP_O_S = EP_O.S;
-
-    Loss_r = EP_I_S.getReal() - EP_O_S.getReal();
-    Loss_j = EP_I_S.getImag() - EP_O_S.getImag();
-
-    // Loss_r = EP_I.S.r - EP_O.S.r;
-    // Loss_j = EP_I.S.j - EP_O.S.j;
+  
+    Loss_r = EP_I.S.getReal() - EP_O.S.getReal();
+    Loss_j = EP_I.S.getImag() - EP_O.S.getImag();
 
     real KW_PER_BTU_PER_SEC = 1.05505585;
     Q_heat = sqrt(Loss_r**2 + Loss_j**2);
