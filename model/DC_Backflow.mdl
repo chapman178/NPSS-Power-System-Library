@@ -32,7 +32,7 @@ cout<<"======================================="<<endl;
 Electric Power System Components
 **************************/
 Element Source DCSupply { //Ametek SGA DC power supply M550129-01
-    setOption("ElectricPowerType", "DC");
+    setOption("switchPowerType", "DC");
     Vrms = 100; // [volts] 
     effDes = 0.95; 
 }
@@ -68,15 +68,12 @@ Element ConstantPowerLoad CLoad
 // Component Linkages
 //-------------------------------------------------------------------------------------------------
 linkPorts( "DCSupply.EP_O", "CableLeft.EP_I", "Port1" );
-// linkPortI( "DCSupply.EP_O", "CableLeft.EP_I" );
 linkPorts( "CableLeft.EP_O", "DeltaDC.EP_I", "Port2" );
-// linkPortI( "CableLeft.EP_O", "DeltaDC.EP_I" );
 linkPorts( "DeltaDC.EP_O", "CableRight.EP_I", "Port3" );
-// linkPortI( "DeltaDC.EP_O", "CableRight.EP_I" );
 linkPorts( "CableRight.EP_O", "CLoad.EP_I", "Port4" );
-// linkPortI( "CableRight.EP_O", "CLoad.EP_I" );
 
-propagateEpsSolverListAndPowerTypes();
+#include "PropagatePower_JWC.fnc"
+propagatePowerJWC();
 
 //solverSequence = { "CableLeft", "CableRight", "DCSupply", "DeltaDC", "CLoad" }; 
 
@@ -91,7 +88,7 @@ void BFPrintOutput()
     // cout << " Calculated DC-DC eff = " << DeltaDC.EP_O.S.r/DeltaDC.EP_I.S.r << endl;
     cout << " DC-DC eff = " <<  DeltaDC.eff << endl;
     Complex cloadInput;
-    cloadInput = Cload.EP_I.S;
+    cloadInput = CLoad.EP_I.S;
     cout << " Calculated load eff = "  << CLoad.P/cloadInput.getReal() << endl; 
     // cout << " Calculated load eff = "  << CLoad.P/CLoad.EP_I.S.r << endl;
     cout << " Load eff = " << CLoad.eff << endl;

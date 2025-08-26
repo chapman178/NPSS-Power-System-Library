@@ -12,8 +12,8 @@
  -------------------------------------------------------------------------------
 ***/
 
-#ifndef __PROPAGATE_POWERJWC__
-#define __PROPAGATE_POWERJWC__
+// #ifndef __PROPAGATE_POWERJWC__
+// #define __PROPAGATE_POWERJWC__
 
 
 
@@ -208,3 +208,4 @@ string [] ElectricalSolverSequenceSetup() {
   
   return ElectricalSolverSequence;
 }
+// #endif
