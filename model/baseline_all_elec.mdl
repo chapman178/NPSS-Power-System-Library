@@ -13,7 +13,7 @@
  |                                                                             |
  -------------------------------------------------------------------------------
 ***/
-#include "PropagatePower_JWC.fnc"
+#include "PSL_connection.fnc"
 #define THERMO GasTbl
 setThermoPackage("$THERMO");
 
@@ -54,7 +54,7 @@ linkPorts("A1.EP_O", "Converter.EP_I", "PORT2"); // A1 (cable) -> Converter
 linkPorts("Converter.EP_O", "A2.EP_I", "PORT3"); //  Converter -> A2 (cable)
 linkPorts("A2.EP_O", "Load.EP_I", "PORT4");            // A2 (cable) -> Load
 
-propagatePowerJWC();
+propagatePower();
 
 // solverSequence = {
 //     "A1", "A2",                         // Power transmission components

@@ -38,8 +38,8 @@ string ports[] = list("ElectricPort", TRUE);
 cout << "Before power propagation: \n";
 printPortPowerTypes();
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();
 
 cout << "\nAfter power propagation: \n";
 printPortPowerTypes();
@@ -51,7 +51,7 @@ printDesignBanner("on");
 // solver.solutionMode = "ONE_PASS";
 cout << "solverSequence before power propagation: \n";
 cout<< powerPropagation.solverSequence <<endl;
-powerPropagation.solverSequence = ElectricalSolverSequenceSetup();
+powerPropagation.solverSequence = electricalSolverSequenceSetup();
 cout << "solverSequence after power propagation: \n";
 cout<< powerPropagation.solverSequence <<endl;
 

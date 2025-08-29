@@ -129,5 +129,5 @@ linkPorts( "Turb.Fl_O"              , "Turbinedump.Fl_I"    	, "St10toEnd0" );
 linkPorts( "Turb.Sh_O"        		, "Turbine_Shaft.Sh_Turbine", "TurbToShaft");
 linkPorts( "Turbine_Shaft.Sh1_I"    , "Gen1.Sh_O"				, "Gen1ToShaft");
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();

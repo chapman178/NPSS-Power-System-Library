@@ -22,7 +22,7 @@ goto Done
 
 :: You got down here, so run all models in the model folder.
 :RunAll
-set /p=You are running runnpss-psl.bat without an argument. This will run all models. Hit ENTER to run first model
-for %%i in (run\*) do (call runnpss -I src -I include -I model -I view -I utils -iclodfirst %%i & set /p=Finished %%i, Hit ENTER to continue )
+
+for %%i in (run\*) do (call runnpss -I src -I include -I model -I view -I utils -iclodfirst %%i )
 echo Finished running all models
 :Done

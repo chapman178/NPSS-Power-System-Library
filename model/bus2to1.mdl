@@ -135,8 +135,8 @@ linkPorts("Cable2b.EP_O","E2.EP_I2","Port4");
 linkPorts("E2.EP_O","Cable3.EP_I","Port5");
 linkPorts("Cable3.EP_O","EM1.EP_I","Port6");
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();
 
 linkPorts( "Propulsor_Shaft.Sh1_I"  , "EM1.Sh_O"          	, "ShaftMotor1" );
 linkPorts( "Atm.Fl_O"               , "Prop.Fl_I"           , "St0toSt1");

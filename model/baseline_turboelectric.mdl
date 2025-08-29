@@ -14,7 +14,7 @@
  |                                                                             |
  -------------------------------------------------------------------------------
 ***/
-// #include "ElectricPort.prt"
+
 
 cout<<"======================================="<<endl;
 cout<<" Example Turbo-electric Model "<<endl;
@@ -168,8 +168,8 @@ linkPorts( "Inv1.EP_O", "Breaker3.EP_I","Port7");
 linkPorts( "Breaker3.EP_O", "Cable3.EP_I","Port8");
 linkPorts( "Cable3.EP_O", "EM1.EP_I","Port9");
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();
 
 linkPorts( "Propulsor_Shaft.Sh1_I"  , "EM1.Sh_O"          	, "Shaft_Motor1" );
 linkPorts( "Atm.Fl_O"               , "Prop.Fl_I"           , "St0toSt1");

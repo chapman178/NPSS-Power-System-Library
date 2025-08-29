@@ -13,7 +13,6 @@
  |                                                                             |
  -------------------------------------------------------------------------------
 ***/
-#include "ElectricPort.prt"
 
 real defaultFrequency = 400.;
 
@@ -164,8 +163,8 @@ linkPorts("E1.EP_O2","Cable2b.EP_I","Port4");
 linkPorts("Cable2a.EP_O","EM1.EP_I","Port5");
 linkPorts("Cable2b.EP_O","EM2.EP_I","Port6");
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();
 
 // propagateEpsSolverListAndPowerTypes();
 

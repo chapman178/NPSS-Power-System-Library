@@ -20,7 +20,7 @@ cout<<" Example Turbo-electric Model "<<endl;
 cout<<"======================================="<<endl;
 
 setThermoPackage("GasTbl");
-#include "PropagatePower_JWC.fnc"
+#include "PSL_connection.fnc"
 
 /**************************
 Electric Power System Components
@@ -176,7 +176,7 @@ linkPorts("Breaker2.EP_O","Cable2.EP_I","Port5");
 linkPorts("Cable2.EP_O","Inv1.EP_I","Port6");
 linkPorts("Inv1.EP_O","Cable3.EP_I","Port7");
 linkPorts("Cable3.EP_O","EM1.EP_I","Port8");
-propagatePowerJWC();
+propagatePower();
 
 
 linkPorts( "Propulsor_Shaft.Sh1_I", "EM1.Sh_O", "Shaft_Motor1" );

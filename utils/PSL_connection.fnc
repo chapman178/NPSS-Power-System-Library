@@ -2,23 +2,18 @@
  -------------------------------------------------------------------------------
  |                                                                             |
  | NASA Glenn Research Center                                                  |
- | 21000 Brookpark Rd 		                                                     |
+ | 21000 Brookpark Rd 		                                                   |
  | Cleveland, OH 44135 	                                                       |
  |                                                                             |
- | File Name:     PropagatePower.fnc											                     |
- | Author(s):     Jeffryes Chapman                                             |
+ | File Name:     PropagatePower.fnc										   |
+ | Author(s):     Jeffryes Chapman, Jonathan Fuzaro Alencar                    |
  | Date(s):       August 2025                                                  |
  |                                                                             |
  -------------------------------------------------------------------------------
 ***/
 
-// #ifndef __PROPAGATE_POWERJWC__
-// #define __PROPAGATE_POWERJWC__
-
-
-
 // depth-first traversal of circuit graph to populate component port power type
-void propagatePowerJWC() {
+void propagatePower() {
   /*
       This function propgates the power type for an electrical system model.  This is done with the following steps.
       1) Look through model for all links created by LinkPorts
@@ -48,12 +43,13 @@ void propagatePowerJWC() {
       } 
     }
   }
+  checkPowerTypeConsistency();
 }
 
 
 // propagateEpsSolverListAndPowerTypes finds valid defined sources and propagates their power type
 // propagateEpsSolverListAndPowerTypes appends the defaultElectricalSolverSequence array with the right components to be passed into solverSequence
-string [] ElectricalSolverSequenceSetup() {
+string [] electricalSolverSequenceSetup() {
   /*
       This function sets the electrical system solver sequence for the model by generating a string array (ElectricalSolverSequence) with the ideal setup.
       The function operates in two main steps
@@ -187,7 +183,7 @@ string [] ElectricalSolverSequenceSetup() {
     // if you failed to populate any of the enodes after looping through all of them exit, it is hopeless.
     //-------------------------------------------------------------------------------------------------
     if (EnodesToRemove.entries() == 0 && EnodesToPoulate.entries() > 0){
-      cerr<<"ElectricalSolverSequenceSetup has failed. Do not trust results"<<endl;
+      cerr<<"electricalSolverSequenceSetup has failed. Do not trust results"<<endl;
       return ElectricalSolverSequence;  
     
     //-------------------------------------------------------------------------------------------------
@@ -208,4 +204,23 @@ string [] ElectricalSolverSequenceSetup() {
   
   return ElectricalSolverSequence;
 }
-// #endif
+
+void checkPowerTypeConsistency() {
+  /* This function check to see if inport and outport power types match for each Electric port connection*/
+  string Links[] = list("Link", TRUE);
+  string EPOname, EPIname;
+  int n;
+  for (n=0; n < Links.entries(); ++n ) {
+    EPOname = Links[n]->getP1Name();
+    EPIname = Links[n]->getP2Name();
+    if ((evalExpr(EPOname+".isA()")=="ElectricOutputPort")&&(EPOname->switchPowerType != EPIname->switchPowerType)){
+      cerr<< " Connection Error : "<<EPOname<<" power type does not equal "<<EPIname<<" power type."<<endl;
+    }
+  }
+}
+
+// Extracts the name of the port from the passed string
+string trimName(string port) {
+  port = port->parent.getName();
+  return port;
+}

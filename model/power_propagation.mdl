@@ -15,7 +15,7 @@
  -------------------------------------------------------------------------------
 ***/
 
-ElectricAssembly powerPropagation {
+Assembly powerPropagation {
   
   Element Enode E1 { // This will be an AC port once power types are propagated through the system.
   ElectricInputPort EP_I1, EP_I2;

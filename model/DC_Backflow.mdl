@@ -14,7 +14,6 @@
  |                                                                             |
  -------------------------------------------------------------------------------
 ***/
-#include "ElectricPort.prt"
 
 cout<<"======================================="<<endl;
 cout<<" MODEL WITH DC-DC CONVERTER AND BACKFLOW"<<endl;
@@ -72,8 +71,8 @@ linkPorts( "CableLeft.EP_O", "DeltaDC.EP_I", "Port2" );
 linkPorts( "DeltaDC.EP_O", "CableRight.EP_I", "Port3" );
 linkPorts( "CableRight.EP_O", "CLoad.EP_I", "Port4" );
 
-#include "PropagatePower_JWC.fnc"
-propagatePowerJWC();
+#include "PSL_connection.fnc"
+propagatePower();
 
 //solverSequence = { "CableLeft", "CableRight", "DCSupply", "DeltaDC", "CLoad" }; 
 
